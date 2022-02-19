@@ -7,53 +7,51 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { auth } from "../../firebase-auth";
-// import Logo from './logo';
+// import Logo from "./logo";
 
-
-export default class LoginScreen extends Component {
+export default class RegisterScreen extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
-
-    // console.log("Constructor çalıştı");
     this.state = {
       userName: "",
       password: "",
     };
   }
 
-
-  loginHandler = () => {
-    console.log("proplar ", this.props);
-    const { navigate } = this.props.navigation;
-    console.log("navigasyon", navigate);
+  registerHandler = () => {
     auth
-      .signInWithEmailAndPassword(this.state.userName, this.state.password)
+      .createUserWithEmailAndPassword(this.state.userName, this.state.password)
       .then((uc) => {
         if (uc.user) {
+          // Geçiş yap
           this.props.navigation.navigate("MainScreen");
         } else {
-          console.log("Kullanıcı bulunamadı");
+          console.log("kullanıcı yaratılamadı");
         }
       })
       .catch((error) => {
         console.log(error);
       });
+
+    auth
+      .signOut()
+      .then(() => {})
+      .catch((error) => {});
   };
 
-  dontHaveAnAccount = () => {
-    this.props.navigation.navigate("Register");
-  }
+  haveAnAccount = () => {
+    this.props.navigation.navigate("Login");
+  };
 
   render() {
     return (
       <View>
-        {/* <Logo/> */}
+        {/* <Logo /> */}
         <View style={this.styles.imageArea}></View>
         <TextInput
           style={this.styles.txtInput}
-          placeholder={"Email"}
           value={this.state.userName}
+          placeholder={"Email"}
           onChangeText={(text) => {
             this.setState({
               userName: text,
@@ -62,8 +60,8 @@ export default class LoginScreen extends Component {
         ></TextInput>
         <TextInput
           style={this.styles.txtInput}
-          placeholder={"Password"}
           value={this.state.password}
+          placeholder={"Password"}
           onChangeText={(text) => {
             this.setState({
               password: text,
@@ -71,14 +69,17 @@ export default class LoginScreen extends Component {
           }}
         ></TextInput>
         <View style={this.styles.buttonContainer}>
-          <TouchableOpacity 
-          onPress={this.loginHandler}
-          style={this.styles.button}
+          <TouchableOpacity
+            onPress={this.haveAnAccount}
+            style={this.styles.button}
           >
-            <Text>Giriş</Text>
+            <Text style={this.styles.buttonTextn}>Do you have an account</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.dontHaveAnAccount}>
-            <Text>Dont have an account</Text>
+          <TouchableOpacity
+            onPress={this.registerHandler}
+            style={this.styles.button}
+          >
+            <Text>Kayit</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -87,27 +88,33 @@ export default class LoginScreen extends Component {
 
   styles = StyleSheet.create({
     txtInput: {
-        backgroundColor: "white",
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        borderRadius: 10,
-        marginTop: 10,
-      },
+      backgroundColor: "white",
+      paddingHorizontal: 15,
+      paddingVertical: 10,
+      borderRadius: 10,
+      marginTop: 10,
+    },
     buttonContainer: {
-      flex: 1,
-      flexDirection: "column",
-      justifyContent: "space-around",
+      width: "60%",
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 10,
+      marginTop: 40,
     },
     button: {
-        // backgroundColor: '#2EB086',
-        width: "100%",
-        padding: 10,
-        borderRadius: 20,
-        alignItems: "center",
-      },
+      // backgroundColor: '#2EB086',
+      width: "100%",
+      padding: 10,
+      borderRadius: 20,
+      alignItems: "center",
+    },
+    buttonText: {
+      color: "white",
+      fontWeight: "700",
+      fontSize: 16,
+    },
     imageArea: {
       paddingTop: "50%",
     },
   });
-
 }
