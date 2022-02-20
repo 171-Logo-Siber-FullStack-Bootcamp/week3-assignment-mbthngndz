@@ -5,9 +5,10 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
 import { auth } from "../../firebase-auth";
-// import Logo from "./logo";
+import Logo from "./logo";
 
 export default class RegisterScreen extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ export default class RegisterScreen extends Component {
       .then((uc) => {
         if (uc.user) {
           // Geçiş yap
-          this.props.navigation.navigate("MainScreen");
+          this.props.navigation.navigate("Main");
         } else {
           console.log("kullanıcı yaratılamadı");
         }
@@ -45,76 +46,105 @@ export default class RegisterScreen extends Component {
 
   render() {
     return (
-      <View>
-        {/* <Logo /> */}
-        <View style={this.styles.imageArea}></View>
-        <TextInput
-          style={this.styles.txtInput}
-          value={this.state.userName}
-          placeholder={"Email"}
-          onChangeText={(text) => {
-            this.setState({
-              userName: text,
-            });
-          }}
-        ></TextInput>
-        <TextInput
-          style={this.styles.txtInput}
-          value={this.state.password}
-          placeholder={"Password"}
-          onChangeText={(text) => {
-            this.setState({
-              password: text,
-            });
-          }}
-        ></TextInput>
-        <View style={this.styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={this.haveAnAccount}
-            style={this.styles.button}
-          >
-            <Text style={this.styles.buttonTextn}>Do you have an account</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.registerHandler}
-            style={this.styles.button}
-          >
-            <Text>Kayit</Text>
-          </TouchableOpacity>
+      <KeyboardAvoidingView style={this.styles.container}>
+        <View style={this.styles.inputGroupContainer}>
+          <Logo />
+          {/* <View style={this.styles.imageArea}></View> */}
+          <TextInput
+            style={this.styles.input}
+            placeholder={"Email"}
+            value={this.state.userName}
+            onChangeText={(text) => {
+              this.setState({
+                userName: text,
+              });
+            }}
+          ></TextInput>
+          <TextInput
+            style={this.styles.input}
+            placeholder={"Password"}
+            value={this.state.password}
+            onChangeText={(text) => {
+              this.setState({
+                password: text,
+              });
+            }}
+          ></TextInput>
+          <View style={this.styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={this.registerHandler}
+              style={this.styles.button}
+            >
+              <Text>Register</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={this.haveAnAccount}
+              style={this.styles.button}
+            >
+              <Text>Have an acoount?</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 
   styles = StyleSheet.create({
+    container: {
+      justifyContent: "center",
+      alignItems: "center",
+      flex: 1,
+      backgroundColor: "#EEE6CE",
+    },
+    input: {
+      backgroundColor: "white",
+      paddingHorizontal: 35,
+      paddingVertical: 10,
+      borderRadius: 10,
+      marginTop: 10,
+    },
     txtInput: {
       backgroundColor: "white",
       paddingHorizontal: 15,
       paddingVertical: 10,
-      borderRadius: 10,
+      borderRadius: 15,
       marginTop: 10,
     },
     buttonContainer: {
       width: "60%",
       justifyContent: "center",
+      paddingHorizontal: 25,
       alignItems: "center",
-      borderRadius: 10,
-      marginTop: 40,
+      marginTop: 50,
     },
     button: {
-      // backgroundColor: '#2EB086',
+      backgroundColor: "#dbd6c1",
       width: "100%",
       padding: 10,
-      borderRadius: 20,
+      borderRadius: 10,
       alignItems: "center",
+      marginTop: 10,
     },
-    buttonText: {
-      color: "white",
-      fontWeight: "700",
-      fontSize: 16,
+    inputGroupContainer: {
+      width: "100%",
+      height: "100%",
+      alignItems: "center",
+      marginTop: "30%",
+      marginLeft: 0,
+      backgroundColor: "#de6262",
+      borderTopLeftRadius: 100,
+      borderTopRightRadius: 100,
     },
+    // button: {
+    //     // backgroundColor: '#2EB086',
+    //     width: "100%",
+    //     padding: 10,
+    //     borderRadius: 20,
+    //     alignItems: "center",
+    //   },
+
     imageArea: {
-      paddingTop: "50%",
+      paddingTop: "30%",
     },
   });
 }

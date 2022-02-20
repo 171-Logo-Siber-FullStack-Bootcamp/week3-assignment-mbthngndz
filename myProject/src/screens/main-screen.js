@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
-export default class MainScreen extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
+import Tabs from "../navigations/tab";
+import Drawers from "../navigations/drawer";
+
+
+const MainScreen = () => {
     return (
-      <View>
-        <Text>Main Screen </Text>
-      </View>
-    );
+      <Drawers/>
+          )
   }
-}
+  
+  export default MainScreen;
+
+
+

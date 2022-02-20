@@ -15,10 +15,18 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen
-          name="MainScreen"
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Main"
           component={MainScreen}
           options={{ headerShown: false }}
         />
@@ -26,36 +34,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#dffde3",
-    // alignItems: "center",
-    // justifyContent: 'center',
-    flexDirection: "column",
-    // paddingTop: "10%",
-  },
-  oval: {
-    borderWidth: 1.5,
-    borderColor: "#023e0a",
-    backgroundColor: "white",
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-    borderBottomLeftRadius: 100,
-    borderBottomRightRadius: 50,
-    width: "100%",
-    height: 200,
-  },
-});
-
-// import LoginScreen from './src/screens/login-screen';
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <LoginScreen></LoginScreen>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
