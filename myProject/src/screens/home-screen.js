@@ -8,11 +8,14 @@ import {
 } from "react-native";
 import { auth } from "../../firebase-auth";
 
+//Created home screen class from Component
+
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
   }
 
+  // Added sign out function from Firebase Authentication
   handleSignOut = () => {
     const { navigate } = this.props.navigation;
     auth

@@ -1,59 +1,81 @@
-import React, {useEffect, useState}  from "react";
-import { View,Text,StyleSheet,ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import axios from "axios";
 
-// Create Todo Screens
-const PostsScreen = () =>{
-  const [todos,setTodos] = useState([])
+// Create Posts Screen
+const PostsScreen = () => {
+  const [posts, setPosts] = useState([]);
 
-// Get JSON Data
-  useEffect(()=>{
-    axios.get('https://jsonplaceholder.typicode.com/todos')
-      .then(response=>setTodos(response.data))
-      .catch(error=>console.log(error));
-  },[]);
+  // Get Pots Data With axios from url
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => setPosts(response.data))
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
-
     <View style={styles.container}>
       <ScrollView>
-      {
-        // Create Custom Table View
-        todos.map((item)=>{
+        {posts.map((item) => {
+          //defined fields to be used of the posts (e.g:posts title)
           return (
             <View key={item.id} style={styles.postContainer}>
-                <View style={styles.id}>
+              <View style={styles.id}>
                 <Text style={styles.idText}>{item.id}</Text>
-                </View>
-                <View style={styles.postInfo}>
-                  <Text style={item.completed.toString() === "true" ? styles.completedTitle : styles.notCompletedTitle}>{item.title}</Text>
-                </View>
-             </View>
-              
-          )
-        })
-      }
+              </View>
+              <View style={styles.postInfo}>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.info}>{item.body}</Text>
+              </View>
+            </View>
+          );
+        })}
       </ScrollView>
     </View>
-
-    
-  )
-}
-export default PostsScreen
+  );
+};
+export default PostsScreen;
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingHorizontal: 10,
-      paddingBottom: 20,
-      backgroundColor: '#fff',
-    },
-    item: {
-      flex: 1,
-      marginHorizontal: 10,
-      marginTop: 24,
-      padding: 10,
-      backgroundColor: '#bec1c0',
-      fontSize: 15,
-      textTransform: 'capitalize'
-    },
-  });
+  container: {
+    backgroundColor: "#EEE6CE",
+    flex: 1,
+    alingItems: "center",
+  },
+  postContainer: {
+    alingItems: "center",
+    justifyContent: "center",
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: "#de6262",
+    margin: "1%",
+    flexDirection: "row",
+  },
+  title: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
+    marginLeft: "10%",
+  },
+  info: {
+    color: "black",
+    fontWeight: "500",
+    fontSize: 12,
+    marginLeft: "10%",
+    textAlign: "auto",
+  },
+  postInfo: {
+    width: "80%",
+  },
+  id: {
+    width: "%20",
+    alingItems: "center",
+    justifyContent: "center",
+  },
+  idText: {
+    color: "#EEE6CE",
+    fontWeight: "700",
+    fontSize: 36,
+  },
+});

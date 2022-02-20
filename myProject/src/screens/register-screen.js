@@ -10,6 +10,7 @@ import {
 import { auth } from "../../firebase-auth";
 import Logo from "./logo";
 
+//Created login screen class from Component
 export default class RegisterScreen extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +20,7 @@ export default class RegisterScreen extends Component {
     };
   }
 
+  // Added sign up function from Firebase Authentication if user don't have an account
   registerHandler = () => {
     auth
       .createUserWithEmailAndPassword(this.state.userName, this.state.password)
@@ -40,6 +42,7 @@ export default class RegisterScreen extends Component {
       .catch((error) => {});
   };
 
+  // If there is no account then navigate to login screen
   haveAnAccount = () => {
     this.props.navigation.navigate("Login");
   };
@@ -52,6 +55,7 @@ export default class RegisterScreen extends Component {
           {/* <View style={this.styles.imageArea}></View> */}
           <TextInput
             style={this.styles.input}
+            // Added place holder for good user experience
             placeholder={"Email"}
             value={this.state.userName}
             onChangeText={(text) => {
@@ -62,6 +66,7 @@ export default class RegisterScreen extends Component {
           ></TextInput>
           <TextInput
             style={this.styles.input}
+            // Added place holder for good user experience
             placeholder={"Password"}
             value={this.state.password}
             onChangeText={(text) => {
@@ -134,17 +139,6 @@ export default class RegisterScreen extends Component {
       backgroundColor: "#de6262",
       borderTopLeftRadius: 100,
       borderTopRightRadius: 100,
-    },
-    // button: {
-    //     // backgroundColor: '#2EB086',
-    //     width: "100%",
-    //     padding: 10,
-    //     borderRadius: 20,
-    //     alignItems: "center",
-    //   },
-
-    imageArea: {
-      paddingTop: "30%",
-    },
+    }
   });
 }

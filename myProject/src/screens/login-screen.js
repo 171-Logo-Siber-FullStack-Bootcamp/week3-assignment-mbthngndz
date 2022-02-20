@@ -10,29 +10,29 @@ import {
 import { auth } from "../../firebase-auth";
 import Logo from "./logo";
 
+//Created login screen class from Component
+
 export default class LoginScreen extends Component {
   constructor(props) {
     super(props);
     console.log(props);
 
-    // console.log("Constructor çalıştı");
     this.state = {
       userName: "",
       password: "",
     };
   }
 
+  // Added log in function from Firebase Authentication if user have an account
   loginHandler = () => {
-    console.log("proplar ", this.props);
     const { navigate } = this.props.navigation;
-    console.log("navigasyon", navigate);
     auth
       .signInWithEmailAndPassword(this.state.userName, this.state.password)
       .then((uc) => {
         if (uc.user) {
           this.props.navigation.navigate("Main");
         } else {
-          console.log("Kullanıcı bulunamadı");
+          console.log("There is no such user");
         }
       })
       .catch((error) => {
@@ -40,6 +40,7 @@ export default class LoginScreen extends Component {
       });
   };
 
+  // If there is no account then navigate to register screen
   dontHaveAnAccount = () => {
     this.props.navigation.navigate("Register");
   };
@@ -49,9 +50,9 @@ export default class LoginScreen extends Component {
       <KeyboardAvoidingView style={this.styles.container}>
         <View style={this.styles.inputGroupContainer}>
           <Logo />
-          {/* <View style={this.styles.imageArea}></View> */}
           <TextInput
             style={this.styles.input}
+            // Added place holder for good user experience
             placeholder={"Email"}
             value={this.state.userName}
             onChangeText={(text) => {
@@ -62,6 +63,7 @@ export default class LoginScreen extends Component {
           ></TextInput>
           <TextInput
             style={this.styles.input}
+            // Added place holder for good user experience
             placeholder={"Password"}
             value={this.state.password}
             onChangeText={(text) => {
@@ -105,10 +107,7 @@ export default class LoginScreen extends Component {
     },
     txtInput: {
       backgroundColor: "white",
-      paddingHorizontal: 15,
-      paddingVertical: 10,
-      borderRadius: 15,
-      marginTop: 10,
+      placeholder:10,
     },
     buttonContainer: {
       width: "60%",
@@ -134,17 +133,6 @@ export default class LoginScreen extends Component {
       backgroundColor: "#de6262",
       borderTopLeftRadius: 100,
       borderTopRightRadius: 100,
-    },
-    // button: {
-    //     // backgroundColor: '#2EB086',
-    //     width: "100%",
-    //     padding: 10,
-    //     borderRadius: 20,
-    //     alignItems: "center",
-    //   },
-
-    imageArea: {
-      paddingTop: "30%",
     },
   });
 }
