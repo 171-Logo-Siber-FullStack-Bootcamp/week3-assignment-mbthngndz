@@ -14,3 +14,9 @@ run expo start
 press w
 
 ## Screens
+![](myProject/src/assests/register.png)
+![](myProject/src/assests/login.png)
+![](myProject/src/assests/todos.png)
+![](myProject/src/assests/posts.png)
+![](myProject/src/assests/drawer-menu.png)
+![](myProject/src/assests/home.png)
